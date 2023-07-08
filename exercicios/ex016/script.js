@@ -1,49 +1,32 @@
-function verificar() {
-    var data = new Date()
-    var ano = data.getFullYear() // ano atual
-    var fano = document.getElementById('txtano')
+function contar(){
+    var inicio = document.getElementById('txtinicio')
+    var fim = document.getElementById('txtfim')
+    var passo = document.getElementById('txtpasso')
     var res = document.querySelector('div#res')
-    if (fano.value.length == 0 || fano.value > ano) {
-        window.alert('Verifique os dados e tente novamente!')
-    } else {
-        var fsex = document.getElementsByName('radsex')
-        var idade = ano - Number(fano.value)
-        var genero = ''
-        var img = document.createElement('img')
-        img.setAttribute('id', 'foto')
-        if (fsex[0].checked) {
-            genero = 'homem'
-            if (idade >=0 && idade < 10) {
-                // Criança
-                img.setAttribute('src', 'bebe-menino.png')
-            } else if (idade < 30) {
-                // Jovem
-                img.setAttribute('src', 'jovem-homem.png')
-            } else if (idade < 50) {
-                // Adulto
-                img.setAttribute('src', 'homem-adulto.png')
-            } else {
-                // Idoso
-                img.setAttribute('src', 'homem-idoso.png')
-            }
-        } else if (fsex[1].checked) {
-            genero = 'mulher'
-            if (idade >=0 && idade < 10) {
-                // Criança
-                img.setAttribute('src', 'bebe-menina.png')
-            } else if (idade < 30) {
-                // Jovem
-                img.setAttribute('src', 'jovem-mulher.png')
-            } else if (idade < 50) {
-                // Adulto
-                img.setAttribute('src', 'mulher-adulta.png')
-            } else {
-                // Idoso
-                img.setAttribute('src', 'mulher-idosa.png')
-            }
+
+    if( inicio.value.length == 0 || fim.value.length == 0 || passo.value.length == 0){
+        window.alert('ERRO: Complete os dados!')
+      } else {
+        res.innerHTML = 'Contagem: <br>'
+        var i = Number(inicio.value)
+        var f = Number(fim.value)
+        var p = Number(passo.value)
+        if (p <= 0){
+          p = 1
         }
-        img.style.padding = '10px'
-        res.innerHTML = `Detectamos ${genero} com ${idade} anos.`
-        res.appendChild(img) //para aparecer a imagem
-    }   
+    
+        if ( i < f){
+            // Contagem crescente
+        for (let c = i; c <= f; c+=p){
+         res.innerHTML += `${c} \u{1F449}`
+       }
+      } else {
+            // Contagem regressiva
+          for(let c = i; c>= f ; c-= p){
+            res.innerHTML += `${c} \u{1F449}`
+          }
+      }
+      res.innerHTML += `\u{1F3C1}`
+
+    }
 }
